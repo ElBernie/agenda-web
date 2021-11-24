@@ -18,6 +18,7 @@ const Home = () => {
 					events {
 						name
 						startingDate
+						mandatory
 					}
 				}
 			`,
@@ -71,6 +72,15 @@ const Home = () => {
 								<span style={{ fontStyle: 'italic' }}>
 									{DateTime.fromISO(event.startingDate).toRelativeCalendar()})
 								</span>
+								{event.mandatory ? (
+									<p style={{ fontStyle: 'italic', color: 'red' }}>
+										présence requise
+									</p>
+								) : (
+									<p style={{ fontStyle: 'italic', color: 'green' }}>
+										présence souhaitée mais non requise
+									</p>
+								)}
 							</p>
 						</div>
 					);
