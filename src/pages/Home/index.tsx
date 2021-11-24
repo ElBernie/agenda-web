@@ -2,11 +2,15 @@
 import './style.css';
 import gql from 'graphql-tag';
 import { useApolloClient } from '@apollo/client';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { DateTime } from 'luxon';
 import Loader from 'react-loader-spinner';
+import Navbar from '../../components/navar';
+import { useReactToPrint } from 'react-to-print';
 const Home = () => {
 	const apolloClient = useApolloClient();
+	const componentRef = useRef(null);
+	const print = useReactToPrint({ content: () => componentRef.current });
 	const [loading, setLoading] = useState(true);
 	const [events, setEvents] = useState([]);
 
@@ -37,6 +41,7 @@ const Home = () => {
 	}, []);
 	return (
 		<div id='page'>
+			{!loading ? <Navbar printHandle={print} /> : null}
 			{loading ? (
 				<div
 					style={{
@@ -51,40 +56,56 @@ const Home = () => {
 					<p>Chargement de l'agenda en cours</p>
 				</div>
 			) : events.length > 0 ? (
-				events.map((event: any) => {
-					return (
-						<div className='event'>
-							<h2>{event.name}</h2>
-							<p>
-								Le{' '}
-								{DateTime.fromISO(event.startingDate).toLocaleString({
-									month: 'numeric',
-									year: 'numeric',
-									day: 'numeric',
-									weekday: 'long',
-								})}{' '}
-								à{' '}
-								{DateTime.fromISO(event.startingDate).toLocaleString({
-									hour: '2-digit',
-									minute: '2-digit',
-								})}{' '}
-								(
-								<span style={{ fontStyle: 'italic' }}>
-									{DateTime.fromISO(event.startingDate).toRelativeCalendar()})
-								</span>
-								{event.mandatory ? (
-									<p style={{ fontStyle: 'italic', color: 'red' }}>
-										présence requise
+				<div
+					ref={componentRef}
+					style={{
+						width: '100%',
+						height: '100%',
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+					}}
+				>
+					{events.map((event: any) => {
+						return (
+							<>
+								<div className='event'>
+									<h2>{event.name}</h2>
+									<p>
+										Le{' '}
+										{DateTime.fromISO(event.startingDate).toLocaleString({
+											month: 'numeric',
+											year: 'numeric',
+											day: 'numeric',
+											weekday: 'long',
+										})}{' '}
+										à{' '}
+										{DateTime.fromISO(event.startingDate).toLocaleString({
+											hour: '2-digit',
+											minute: '2-digit',
+										})}{' '}
+										(
+										<span style={{ fontStyle: 'italic' }}>
+											{DateTime.fromISO(
+												event.startingDate
+											).toRelativeCalendar()}
+											)
+										</span>
+										{event.mandatory ? (
+											<p style={{ fontStyle: 'italic', color: 'red' }}>
+												présence requise
+											</p>
+										) : (
+											<p style={{ fontStyle: 'italic', color: 'green' }}>
+												présence souhaitée mais non requise
+											</p>
+										)}
 									</p>
-								) : (
-									<p style={{ fontStyle: 'italic', color: 'green' }}>
-										présence souhaitée mais non requise
-									</p>
-								)}
-							</p>
-						</div>
-					);
-				})
+								</div>
+							</>
+						);
+					})}
+				</div>
 			) : (
 				'rien a afficher'
 			)}
