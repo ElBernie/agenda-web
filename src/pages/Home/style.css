@@ -49,8 +49,8 @@
 	.event {
 		border-radius: 10px;
 		border-width: 1px;
-		border-style: 'solid';
-		border-color: '#00BFFF';
+		border-style: solid;
+		border-color: #00bfff;
 		width: 50%;
 		margin: 10px;
 	}
