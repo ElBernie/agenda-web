@@ -1,0 +1,107 @@
+/** @format */
+
+#page {
+	display: flex;
+	min-height: 100%;
+	min-width: 100%;
+	flex-direction: column;
+	align-items: center;
+}
+
+.event {
+	background-color: #f0f0f0;
+	border-radius: 0;
+	border-top-width: 1px;
+	border-bottom-width: 0px;
+	border-style: solid;
+	border-color: #00bfff;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	line-break: normal;
+}
+
+.event:first-of-type {
+	border-top-width: 1px;
+}
+.event:last-of-type {
+	border-bottom-width: 1px;
+	margin-bottom: 100px;
+}
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+	/* CSS */
+	#page {
+		display: flex;
+		height: 100%;
+		width: 100%;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.event {
+		border-radius: 10px;
+		border-width: 1px;
+		border-style: 'solid';
+		border-color: '#00BFFF';
+		width: 50%;
+		margin: 10px;
+	}
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+	/* CSS */
+	#page {
+		display: flex;
+		height: 100%;
+		width: 100%;
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+	/* CSS */
+	#page {
+		display: flex;
+		height: 100%;
+		width: 100%;
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+	/* CSS */
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+	/* CSS */
+}
